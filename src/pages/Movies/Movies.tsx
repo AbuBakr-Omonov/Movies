@@ -13,7 +13,7 @@ const Movies = () => {
 
   const { getParam, setParam } = useParamsHook();
   const genre = getParam("genre");
-  console.log(genre);
+  // console.log(genre);
 
   const page = Number(getParam("page")) || 1;
   const hadlPagination = (value: Number) => {

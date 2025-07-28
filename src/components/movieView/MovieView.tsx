@@ -22,14 +22,14 @@ const MovieView: FC<Props> = ({ data, loading, count }) => {
   
   return (
     <>
-      <div className="container mx-auto px-4 py-8 grid gap-5 grid-cols-4 max-[920px]:grid-cols-3 max-[640px]:grid-cols-2">
+      <div className="container mx-auto px-4 py-8 grid gap-5 grid-cols-4 max-[920px]:grid-cols-3 max-[640px]:grid-cols-2 max-[640px]:gap-2">
         {loading ? (
           <SkeletonMovieCard count={count} />
         ) : (
           data?.map((movie: IMovie) => {
             const isSaved = saved.some((item:IMovie) => item.id === movie.id);
             return(
-               <div
+            <div
               key={movie.id}
               className="bg-white relative dark:bg-[#111111] rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
             >
@@ -39,7 +39,7 @@ const MovieView: FC<Props> = ({ data, loading, count }) => {
                   loading="lazy"
                   src={IMAGE_URL + movie.poster_path}
                   alt={movie.title}
-                  className=" w-full h-[332px]  object-cover  aspect-[3/4] bg-[#1111] rounded overflow-hidden flex items-center justify-center transition-transform duration-300 hover:scale-105"
+                  className=" w-full h-[332px]  object-cover  aspect-[3/4] bg-[#1111] rounded overflow-hidden flex items-center justify-center transition-transform duration-300 hover:scale-105 "
                 />
               </div>
               <div className="p-4 space-y-2">

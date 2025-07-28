@@ -8,6 +8,15 @@ export const useMovie = () => {
       queryFn: () => api.get("discover/movie", { params }).then(res => res.data),
     });
 
+     //search
+    const getMoviesSearch = (params: any) =>
+    useQuery({
+      queryKey: ["movie", params],
+      queryFn: () => api.get("search/movie", { params }).then(res => res.data),
+      enabled: !!params.query
+    });
+
+
     const getMovieSingle = (id: string) =>
     useQuery({
       queryKey: ["movie", id],
@@ -21,5 +30,5 @@ export const useMovie = () => {
     });
 
 
-  return { getMovies ,getMovieSingle, getMovieDetail };
+  return { getMovies ,getMovieSingle, getMovieDetail, getMoviesSearch };
 };

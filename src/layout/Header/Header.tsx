@@ -7,10 +7,10 @@ import {
   SearchOutlined,
   SunFilled,
   MoonFilled,
+  UserOutlined,
 } from "@ant-design/icons";
 
 import Navlogo from "@/assets/img/LOGOTYPE – BILETICK.svg";
-import CustomButton from "@/components/button/CustomButton";
 
 const Header = () => {
   useEffect(() => window.scrollTo(0, 0));
@@ -112,8 +112,13 @@ const Header = () => {
               />
             )}
           </div>
-
-          <CustomButton />
+           <NavLink
+            to="/login"
+            className={"font-Ax flex items-center cursor-pointer text-[#C61F1F] text-[20px] max-[600px]:text-[16px]"}
+            >
+            <UserOutlined style={{ fontSize: "20px" }} />
+            <span>Sign in</span>
+          </NavLink>
         </div>
       </div>
     

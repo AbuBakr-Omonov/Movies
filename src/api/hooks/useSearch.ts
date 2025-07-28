@@ -6,7 +6,7 @@ export const useSearch = (params: SearchParams) => {
   return useQuery({
     queryKey: ["search", params],
     queryFn: () =>
-      api.get("/search/movie", { params }).then((res) => res.data),
-    //  enabled: !!params.query, 
+     api.get("/search/movie", { params }).then((res) => res.data),
+     enabled: !!params.query, 
   });
 };
