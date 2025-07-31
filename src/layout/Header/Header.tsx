@@ -3,18 +3,28 @@ import { NavLink, useNavigate } from "react-router-dom";
 import {
   HomeOutlined,
   VideoCameraOutlined,
-  BookOutlined,
   SearchOutlined,
   SunFilled,
   MoonFilled,
   UserOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
-
+import {jwtDecode} from "jwt-decode";
 import Navlogo from "@/assets/img/LOGOTYPE – BILETICK.svg";
+import { Bookmark } from "lucide-react";
+import { useStore } from "@/Zustand/Store";
 
 const Header = () => {
   useEffect(() => window.scrollTo(0, 0));
   const navigate = useNavigate();
+    const { auth, setAuth, logout } = useStore();
+
+ useEffect(() => {
+    const credential = localStorage.getItem("credential");
+    if (credential && !auth) {
+      setAuth({ credential });
+    }
+  }, [auth, setAuth]);
 
   //dark
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() =>
@@ -32,8 +42,13 @@ const Header = () => {
     const isDark = document.body.classList.toggle("dark");
     localStorage.setItem("theme", isDark ? "dark" : "light");
     setIsDarkMode(isDark);
-  };  
+  };
+ 
 
+  // Decode 
+  const decoded: any = auth?.credential ? jwtDecode(auth.credential) : null;
+  const userImage = decoded?.picture;
+  const userName = decoded?.name || decoded?.family_name || "User";
   return (
     //sticky top-0 z-50
     <header className=" ">
@@ -50,8 +65,7 @@ const Header = () => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `flex flex-col items-center text-xs font-Ax ${
-                isActive ? "text-[#C61F1F]" : "text-gray-700 dark:text-white"
+              `flex flex-col items-center text-xs font-Ax ${isActive ? "text-[#C61F1F]" : "text-gray-700 dark:text-white"
               } hover:text-[#C61F1F]`
             }
           >
@@ -62,8 +76,7 @@ const Header = () => {
           <NavLink
             to="/movies"
             className={({ isActive }) =>
-              `flex flex-col items-center text-xs font-Ax ${
-                isActive ? "text-[#C61F1F]" : "text-gray-700 dark:text-white"
+              `flex flex-col items-center text-xs font-Ax ${isActive ? "text-[#C61F1F]" : "text-gray-700 dark:text-white"
               } hover:text-[#C61F1F]`
             }
           >
@@ -74,20 +87,18 @@ const Header = () => {
           <NavLink
             to="/saved"
             className={({ isActive }) =>
-              `flex flex-col items-center text-xs font-Ax ${
-                isActive ? "text-[#C61F1F]" : "text-gray-700 dark:text-white"
+              `flex flex-col items-center text-xs font-Ax ${isActive ? "text-[#C61F1F]" : "text-gray-700 dark:text-white"
               } hover:text-[#C61F1F]`
             }
           >
-            <BookOutlined style={{ fontSize: "20px" }} />
+            <Bookmark style={{ fontSize: "20px" }} />
             <span>Saved</span>
           </NavLink>
 
           <NavLink
             to="/search"
             className={({ isActive }) =>
-              `flex flex-col items-center text-xs font-Ax ${
-                isActive ? "text-[#C61F1F]" : "text-gray-700 dark:text-white"
+              `flex flex-col items-center text-xs font-Ax ${isActive ? "text-[#C61F1F]" : "text-gray-700 dark:text-white"
               } hover:text-[#C61F1F]`
             }
           >
@@ -112,16 +123,35 @@ const Header = () => {
               />
             )}
           </div>
-           <NavLink
-            to="/login"
-            className={"font-Ax flex items-center cursor-pointer text-[#C61F1F] text-[20px] max-[600px]:text-[16px]"}
+          {auth?.credential ? (
+            <div className="flex items-center gap-2">
+              {userImage && (
+                <img
+                  src={userImage}
+                  alt="user"
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+              )}
+              <span className="text-[#C61F1F] font-semibold hidden sm:block">
+                {userName}
+              </span>
+              <LogoutOutlined
+                className="cursor-pointer text-red-500 hover:text-red-700"
+                onClick={logout}
+              />
+            </div>
+          ) : (
+            <NavLink
+              to="/login"
+              className="font-Ax flex items-center cursor-pointer text-[#C61F1F] text-[20px] max-[600px]:text-[16px]"
             >
-            <UserOutlined style={{ fontSize: "20px" }} />
-            <span>Sign in</span>
-          </NavLink>
+              <UserOutlined style={{ fontSize: "20px" }} />
+              <span>Sign in</span>
+            </NavLink>
+          )}
         </div>
       </div>
-    
+
     </header>
   );
 };

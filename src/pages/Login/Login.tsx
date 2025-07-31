@@ -1,9 +1,10 @@
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google"
 import { useStore } from "@/Zustand/Store"
+import { useNavigate } from "react-router-dom"
 
 export default function LoginForm() {
     const GOOGLE_CLIENT_ID = "460354480812-6rftmglhjvh7macsog9n7gt4ppuh7osq.apps.googleusercontent.com"
-
+    const navigate = useNavigate()
     const setAuth = useStore((state) => state.setAuth)
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-black p-4">
@@ -78,8 +79,10 @@ export default function LoginForm() {
                                 onSuccess={(credentialResponse) => {
                                     console.log("Google Login Success:", credentialResponse)
                                     if (credentialResponse.credential) {
-                                        setAuth({ credential: credentialResponse.credential }) 
+                                        setAuth({ credential: credentialResponse.credential })
+                                        navigate("/")
                                     }
+
                                 }}
                                 onError={() => {
                                     console.error("Google Login Failed")

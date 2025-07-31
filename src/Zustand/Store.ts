@@ -1,43 +1,56 @@
-import type { IMovie } from '@/types'
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
+import type { IMovie } from "@/types"
 
 type AuthUser = {
-  credential: string 
+  credential: string
 } | null
 
 type Store = {
-  saved:IMovie[]
-  togglesaved: (payload:IMovie) => void
+  saved: IMovie[]
+  togglesaved: (movie: IMovie) => void
 
   auth: AuthUser
-  setAuth: (payload: AuthUser) => void
+  setAuth: (credential: AuthUser) => void
   logout: () => void
 }
+
 export const useStore = create<Store>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       saved: [],
-      togglesaved: (payload) =>
-        set((state) => {
-          const isExast = state.saved.some((item: IMovie) => item.id === payload.id)
-          if (isExast) {
-            return {
-              saved: state.saved.filter((item: IMovie) => item.id !== payload.id),
-            }
-          } else {
-            return {
-              saved: [...state.saved, payload],
-            }
-          }
-        }),
+      togglesaved: (movie) => {
+        const exists = get().saved.some((item) => item.id === movie.id)
+        if (exists) {
+          set({
+            saved: get().saved.filter((item) => item.id !== movie.id),
+          })
+        } else {
+          set({
+            saved: [...get().saved, movie],
+          })
+        }
+      },
+
       auth: null,
-      setAuth: (payload) => set({ auth: payload }),
-      logout: () => set({ auth: null }),
+      setAuth: (credential) => {
+        if (credential?.credential) {
+          // LocalStorage ga saqlaymiz
+          localStorage.setItem("credential", credential.credential)
+        }
+        set({ auth: credential })
+      },
+      logout: () => {
+        localStorage.removeItem("credential")
+        set({ auth: null })
+      },
     }),
     {
-      name: "movie-saved-store", 
-    },
-  ),
+      name: "movie-saved-store",
+      partialize: (state) => ({
+        saved: state.saved,
+        auth: state.auth,
+      }),
+    }
+  )
 )
-

@@ -18,7 +18,6 @@ const MovieView: FC<Props> = ({ data, loading, count }) => {
   
   const {saved,togglesaved} = useStore()
   
-  console.log(togglesaved);
   
   return (
     <>
@@ -67,12 +66,12 @@ const MovieView: FC<Props> = ({ data, loading, count }) => {
                   >
                     {isSaved ? (
                       <BookmarkCheck
-                        className="w-5 h-5 max-[600px]:w-3 max-[600px]:h-3"
+                        className="w-5 h-5 max-[600px]:w-4 max-[600px]:h-4"
                         strokeWidth={2}
                         fill="currentColor"
                       />
                     ) : (
-                      <Bookmark className="w-5 h-5 max-[600px]:w-3 max-[600px]:h-3" strokeWidth={2} />
+                      <Bookmark className="w-5 h-5 max-[600px]:w-4 max-[600px]:h-4" strokeWidth={2} />
                     )}
                   </button>
               </div>
