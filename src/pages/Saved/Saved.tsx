@@ -1,10 +1,9 @@
 import { useMovie } from "@/api/hooks/useMovie";
 import MovieView from "@/components/movieView/MovieView";
 import { useStore } from "@/Zustand/Store";
-import React, { useEffect } from "react";
+import React from "react";
 
 const Saved = () => {
-   useEffect(() => window.scrollTo(0, 0), []);
     const { getMovies } = useMovie();
   const { isLoading } = getMovies({})
   const {saved }= useStore()
