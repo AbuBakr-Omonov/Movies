@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   InstagramOutlined,
   FacebookOutlined,
@@ -18,7 +18,6 @@ import logo from "@/assets/vite.svg";
 import app from "@/assets/img/appstore.svg";
 import play from "@/assets/img/googleplay.svg";
 const Footer = () => {
-  useEffect(() => window.scrollTo(0, 0));
   return (
     <footer className="bg-[#f9f9f9] dark:bg-[#111111] text-gray-700 dark:text-white  mt-10 py-10">
       <div className="container mx-auto px-4 max-w-[1280px] grid grid-cols-1 md:grid-cols-4 gap-8">

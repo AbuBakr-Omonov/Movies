@@ -1,10 +1,9 @@
-import React, { useEffect, type FC } from "react";
+import React, {type FC } from "react";
 
 interface Props {
   count?: number;
 }
 const SkeletonMovieCard: FC<Props> = ({ count }) => {
-  useEffect(() => window.scrollTo(0, 0));
   return (
     <>
       {Array(count)

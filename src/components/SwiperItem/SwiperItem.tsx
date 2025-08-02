@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import SkeletonSwiperItem from "../SkeletonMovieCard/SkeletonSwiperItem";
 
 const SwiperItem = () => {
-   useEffect(() => window.scrollTo(0, 0), []);
   const { getMovies } = useMovie();
   const { data, isLoading } = getMovies({
     page: 1,

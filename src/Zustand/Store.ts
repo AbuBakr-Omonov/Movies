@@ -35,7 +35,6 @@ export const useStore = create<Store>()(
       auth: null,
       setAuth: (credential) => {
         if (credential?.credential) {
-          // LocalStorage ga saqlaymiz
           localStorage.setItem("credential", credential.credential)
         }
         set({ auth: credential })

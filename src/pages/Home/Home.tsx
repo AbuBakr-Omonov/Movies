@@ -2,10 +2,10 @@ import { useMovie } from "@/api/hooks/useMovie";
 import MovieView from "@/components/movieView/MovieView";
 import SwiperItem from "@/components/SwiperItem/SwiperItem";
 import View from "@/components/view/View";
-import React, { useEffect } from "react";
+import React from "react";
 
 const Home = () => {
-  useEffect(() => window.scrollTo(0, 0));
+
   const { getMovies } = useMovie();
   const { data, isLoading } = getMovies({
     page: 1,

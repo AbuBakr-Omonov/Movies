@@ -15,7 +15,7 @@ import SkeletonCast from "@/components/SkeletonMovieCard/SkeletonCast ";
 import SkeletonMovieInfo from "./SkeletonMovieInfo ";
 /////
 const MovieDetail = () => {
-  useEffect(() => window.scrollTo(0, 0));
+  useEffect(() => window.scrollTo(0, 0),[]);
   const { id } = useParams();
   const { getMovieSingle, getMovieDetail } = useMovie();
   const { data, isLoading: isLoadingMovie, isLoading: isLoadingInfo } = getMovieSingle(id || "");

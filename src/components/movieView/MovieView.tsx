@@ -1,6 +1,6 @@
 import { IMAGE_URL } from "@/const";
 import type { IMovie } from "@/types";
-import React, { useEffect, type FC } from "react";
+import React, { type FC } from "react";
 import SkeletonMovieCard from "../SkeletonMovieCard/SkeletonMovieCard";
 import { StarOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,6 @@ interface Props {
 }
 
 const MovieView: FC<Props> = ({ data, loading, count }) => {
-  useEffect(() => window.scrollTo(0, 0));
   const navigate = useNavigate();
 
   const { saved, togglesaved, auth  } = useStore();
@@ -28,13 +27,14 @@ const MovieView: FC<Props> = ({ data, loading, count }) => {
           const isSaved = saved.some((item: IMovie) => item.id === movie.id);
 
           const handleSaveClick = () => {
+             
             if (!auth?.credential) {
               navigate("/login");
               return;
             }
 
               togglesaved(movie);
-            
+            ``
           };
 
           return (

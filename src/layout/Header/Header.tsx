@@ -15,7 +15,6 @@ import { Bookmark } from "lucide-react";
 import { useStore } from "@/Zustand/Store";
 
 const Header = () => {
-  useEffect(() => window.scrollTo(0, 0));
   const navigate = useNavigate();
     const { auth, setAuth, logout } = useStore();
 
